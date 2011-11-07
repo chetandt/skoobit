@@ -9,7 +9,6 @@ gem 'rake', '0.8.7'
 gem 'haml'
 gem 'sass'
 gem 'compass'
-gem 'mongrel'
 gem 'spree_vendors', :git => 'git://github.com/DynamoMTL/spree-vendors.git'
 
 
