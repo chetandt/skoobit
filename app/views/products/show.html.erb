@@ -1,0 +1,60 @@
+<% @body_id = 'product-details' %>
+<h1><%= accurate_title %></h1>
+
+<div id="product-images">
+  <%= hook :product_images do %>
+    <div id="main-image">
+      <%= render 'image' %>
+    </div>
+    <div id="thumbnails">
+      <%= render 'thumbnails', :product => @product %>
+    </div>
+  <% end %>
+</div>
+
+<div id="product-description">
+  <%= hook :product_description do %>
+    <%= product_description(@product) rescue t("product_has_no_description") %>
+  <% end %>
+  <%= hook :product_properties do %>
+    <%= render 'properties' %>
+  <% end %>
+</div>
+
+<%= hook :cart_form do %>
+  <div id="cart-form">
+    <%= render 'cart_form' %>
+  </div>
+<% end %>
+
+<%= render 'taxons' %>
+<div style="clear: both;">
+  <h2>Vendor</h2>
+  <table style="border: 1px">
+    <tr>
+      <th>Product</th>
+      <th>Vendor name</th>
+      <th>Price</th>
+    </tr>
+    <tr>
+      <td><%= @product.name  rescue ""%></td>
+      <td><%= @product.vendor.name rescue "" %></td>
+      <td><%= @product.price rescue ""%></td>
+    </tr>
+  </table>
+</div>
+<div style="clear: both;">
+  <h2>Affiliate Vendor</h2>
+  <table style="border: 1px">
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+    </tr>
+    <% @afiliated_vendors.each do |vendor| %>
+      <tr>
+        <td><a href="<%= vendor["url"] %>"><%= vendor["title"]  rescue ""%></a></td>
+        <td><%= vendor["price"] rescue ""%></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
