@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'nokogiri'
 class ProductsController < Spree::BaseController
   HTTP_REFERER_REGEXP = /^https?:\/\/[^\/]+\/t\/([a-z0-9\-\/]+)$/
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
