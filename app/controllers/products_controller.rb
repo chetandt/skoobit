@@ -1,3 +1,4 @@
+require 'open-uri'
 class ProductsController < Spree::BaseController
   HTTP_REFERER_REGEXP = /^https?:\/\/[^\/]+\/t\/([a-z0-9\-\/]+)$/
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
@@ -13,7 +14,7 @@ class ProductsController < Spree::BaseController
   end
 
   def show
-      
+
     @product = Product.find_by_permalink!(params[:id])
     return unless @product
 
@@ -21,8 +22,6 @@ class ProductsController < Spree::BaseController
     @product_properties = ProductProperty.includes(:property).where(:product_id => @product.id)
     @selected_variant = @variants.detect { |v| v.available? }
     @afiliated_vendors = afiliated_vendors
-    puts "@@@@@@@@@@@@@@@@@@@@@"
-    puts @afiliated_vendors.class
     referer = request.env['HTTP_REFERER']
 
     if referer && referer.match(HTTP_REFERER_REGEXP)
@@ -30,6 +29,12 @@ class ProductsController < Spree::BaseController
     end
 
     respond_with(@product)
+  end
+
+  def get_affiliate
+    isbn = params[:isbn] || "9780060765576"
+    @file_handle = open("http://www.bookrenter.com/api/fetch_book_info?developer_key=MAWRL7Is418fEqaWpOlY5NMHZjhejXbF&version=2008-07-29&isbn=#{isbn}")
+    @document = Nokogiri::XML(@file_handle)
   end
 
   private

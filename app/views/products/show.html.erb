@@ -1,3 +1,5 @@
+
+
 <% @body_id = 'product-details' %>
 <h1><%= accurate_title %></h1>
 
@@ -43,6 +45,14 @@
     </tr>
   </table>
 </div>
+<%= form_for :product,  :url=> "/products/get_affiliate" do |f| %>
+  <%= text_field_tag 'isbn' %>
+  <%= submit_tag "save" %>
+<% end %>
+<div id="bookrenter">
+  
+</div>
+
 <div style="clear: both;">
   <h2>Affiliate Vendor</h2>
   <table style="border: 1px">
