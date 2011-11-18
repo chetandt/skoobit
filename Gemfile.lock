@@ -226,7 +226,6 @@ DEPENDENCIES
   haml
   mysql
   mysql2 (< 0.3)
-  nokogiri
   rails (= 3.0.7)
   rake (= 0.8.7)
   rspec-rails
