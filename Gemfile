@@ -9,7 +9,7 @@ gem 'rake', '0.8.7'
 gem 'haml'
 gem 'sass'
 gem 'compass'
-# gem 'nokogiri'
+ gem 'hpricot'
 gem 'spree_vendors', :git => 'git://github.com/DynamoMTL/spree-vendors.git'
 
 
