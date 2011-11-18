@@ -34,7 +34,7 @@ class ProductsController < Spree::BaseController
   def get_affiliate
     isbn = params[:isbn] || "9780060765576"
     @file_handle = open("http://www.bookrenter.com/api/fetch_book_info?developer_key=MAWRL7Is418fEqaWpOlY5NMHZjhejXbF&version=2008-07-29&isbn=#{isbn}")
-    @document = Hpricot::XML(@file_handle)
+#    @document = Hpricot::XML(@file_handle)
   end
 
   private
