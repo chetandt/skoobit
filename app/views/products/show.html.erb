@@ -6,7 +6,7 @@
 <div id="product-images">
   <%= hook :product_images do %>
     <div id="main-image">
-      <%= render 'image' %>
+      <%= image_tag @product.image_url %>
     </div>
     <div id="thumbnails">
       <%= render 'thumbnails', :product => @product %>
@@ -50,7 +50,7 @@
   <%= submit_tag "Go" %>
 <% end %>
 <div id="bookrenter">
-  
+
 </div>
 
 <div style="clear: both;">
