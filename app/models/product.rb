@@ -32,13 +32,18 @@ class Product < ActiveRecord::Base
     :class_name => 'Variant',
     :conditions => ["variants.is_master = ? AND variants.deleted_at IS NULL", true]
 
-#  delegate_belongs_to :master, :sku, :price, :weight, :height, :width, :depth, :is_master
-#  delegate_belongs_to :master, :cost_price if Variant.table_exists? && Variant.column_names.include?("cost_price")
+  #  delegate_belongs_to :master, :sku, :price, :weight, :height, :width, :depth, :is_master
+  #  delegate_belongs_to :master, :cost_price if Variant.table_exists? && Variant.column_names.include?("cost_price")
+
+  searchable do
+    string :name
+    string  :isbn
+  end
 
   after_create :set_master_variant_defaults
   after_create :add_properties_and_option_types_from_prototype
   before_save :recalculate_count_on_hand
-#  after_save :update_memberships if ProductGroup.table_exists?
+  #  after_save :update_memberships if ProductGroup.table_exists?
   after_save :set_master_on_hand_to_zero_when_product_has_variants
   after_save :save_master
 
@@ -62,11 +67,12 @@ class Product < ActiveRecord::Base
 
   accepts_nested_attributes_for :product_properties, :allow_destroy => true, :reject_if => lambda { |pp| pp[:property_name].blank? }
 
-#  make_permalink
+  #  make_permalink
+
 
   alias :options :product_option_types
 
-#  include ::Scopes::Product
+  #  include ::Scopes::Product
 
   #RAILS3 TODO -  scopes are duplicated here and in scopres/product.rb - can we DRY it up?
   # default product scope only lists available and non-deleted products
@@ -79,14 +85,14 @@ class Product < ActiveRecord::Base
 
   scope :on_hand,         where("products.count_on_hand > 0")
 
-#  if (ActiveRecord::Base.connection.adapter_name == 'PostgreSQL')
-#    if ActiveRecord::Base.connection.tables.include?("products")
-#      scope :group_by_products_id, { :group => "products." + Product.column_names.join(", products.") }
-#    end
-#  else
-#    scope :group_by_products_id, { :group => "products.id" }
-#  end
-#  search_methods :group_by_products_id
+  #  if (ActiveRecord::Base.connection.adapter_name == 'PostgreSQL')
+  #    if ActiveRecord::Base.connection.tables.include?("products")
+  #      scope :group_by_products_id, { :group => "products." + Product.column_names.join(", products.") }
+  #    end
+  #  else
+  #    scope :group_by_products_id, { :group => "products.id" }
+  #  end
+  #  search_methods :group_by_products_id
 
   scope :id_equals, lambda { |input_id| where("products.id = ?", input_id) }
 
@@ -227,8 +233,8 @@ class Product < ActiveRecord::Base
 
   def recalculate_count_on_hand
     product_count_on_hand = has_variants? ?
-        variants.inject(0) {|acc, v| acc + v.count_on_hand} :
-        (master ? master.count_on_hand : 0)
+      variants.inject(0) {|acc, v| acc + v.count_on_hand} :
+      (master ? master.count_on_hand : 0)
     self.count_on_hand = product_count_on_hand
   end
 

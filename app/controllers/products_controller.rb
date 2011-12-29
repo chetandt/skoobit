@@ -37,6 +37,19 @@ class ProductsController < Spree::BaseController
     @chegg_data = open("http://api.chegg.com/rent.svc?KEY=9383d49949fd7e3efb1891249ce7370c&PW=1076222&R=XML&V=2.0&isbn=#{isbn}&with_pids=1")
   end
 
+  def search
+    @prducts = search_text(params)
+    redirect_to :back
+  end
+
+  protected
+  def search_text(options)
+    puts "!!!!!!!!!!!!!#{options}"
+    Sunspot.search(Product) do
+      keywords options[:search]
+      paginate :page => options[:page]
+    end
+  end
   private
 
   def afiliated_vendors

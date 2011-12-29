@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 #resources :products
 #  root :to => 'products#index'
   match '/products/get_affiliate' => 'products#get_affiliate', :as => :get_affiliate
+  match '/products/search' => 'products#search', :as => :search
+
 #
 #
 #

@@ -41,7 +41,12 @@
         <span class="tophead">Rent and Save 65% to 85% on Textbooks!<br/></span>
       </div>
       <div id="o2"><div style="font-size:20px;width:100%">&nbsp;</div>
-        <div id="search"><br/><span class="searchrow">Search Books: <input type="text" class="searchbar" value="Enter ISBN, Title, Author's Name, or Keyword(s)..." /><input type="submit" class="fetchbutton" value="Fetch! " /></span>
+        <div id="search"><br/>
+          <%= form_for :product,  :url=> "/products/search" do |f| %>
+            <span class="searchrow">Search Books: <input type="text" class="searchbar" name="search" value="Enter ISBN, Title, Author's Name, or Keyword(s)..." />
+              <input type="submit" class="fetchbutton" value="Fetch! " />
+            </span>
+          <% end %>
         </div>
       </div>
       <div id="o3">

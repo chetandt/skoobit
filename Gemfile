@@ -9,8 +9,8 @@ gem 'haml'
 gem 'sass'
 gem 'compass'
 gem 'spree_vendors', :git => 'git://github.com/DynamoMTL/spree-vendors.git'
-
-
+gem 'sunspot_rails'
+gem 'sunspot_solr'
 
 # Dev/Test gems
 group :development, :test do
@@ -18,5 +18,7 @@ group :development, :test do
   gem 'webrat'
   gem 'cucumber-rails'
   gem 'rspec-rails'
+  gem 'sunspot_rails'
+  gem 'sunspot_solr'
 end
 
